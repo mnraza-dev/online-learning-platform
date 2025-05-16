@@ -2,7 +2,9 @@
 import React from 'react'
 
 const Provider = ({children}) => {
-  
+  const CreateNewUser = () => {
+
+  }
   return (
     <div>{children}</div>
   )
