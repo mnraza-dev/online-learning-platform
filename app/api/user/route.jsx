@@ -15,12 +15,12 @@ export async function POST(req) {
     const result = await db
       .insert(usersTable)
       .values({
-        email,
-        name,
+        name: name,
+        email: email,
       })
       .returning(usersTable);
-      console.log(result);
-      
+    console.log(result);
+
     return NextResponse.json(result);
   }
   return NextResponse.json(users[0]);
