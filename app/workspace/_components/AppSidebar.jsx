@@ -38,7 +38,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <Button variant={"outline"}>Create New Course</Button>
+          <Button >Create New Course</Button>
         </SidebarGroup>
         <SidebarGroup>
           <SidebarGroupContent>
