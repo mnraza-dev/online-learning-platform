@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 
 const AddNewCourseDialog = ({ children }) => {
   const [formData, setFormData] = useState({
@@ -60,7 +61,7 @@ const AddNewCourseDialog = ({ children }) => {
           </div>
 
           <div>
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">Course Description (Optional)</Label>
             <Textarea
               id="description"
               name="description"
@@ -70,7 +71,18 @@ const AddNewCourseDialog = ({ children }) => {
               required
             />
           </div>
-
+          <div>
+            <Label htmlFor="chapters">Number of Chapters </Label>
+            <Input
+              id="chapters"
+              name="chapters"
+              type="number"
+              value={formData.chapters}
+              onChange={handleChange}
+              placeholder="e.g. 10"
+              required
+            />
+          </div>
           <div>
             <Label htmlFor="duration">Duration (in hours)</Label>
             <Input
@@ -95,6 +107,11 @@ const AddNewCourseDialog = ({ children }) => {
               required
             />
           </div>
+          <div className="flex items-center gap-2">
+            <Label htmlFor="category">Include Video</Label>
+           <Switch />
+          </div>
+          
 
           <DialogFooter>
             <Button type="submit" className="bg-green-600 hover:bg-green-700">
