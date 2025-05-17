@@ -2,6 +2,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import React from "react";
 import { AppSidebar } from "./_components/AppSidebar";
 import AppHeader from "./_components/AppHeader";
+import WelcomeBanner from "./_components/WelcomeBanner";
 
 const WorkspaceProvider = ({ children }) => {
   return (
@@ -9,7 +10,12 @@ const WorkspaceProvider = ({ children }) => {
       <AppSidebar />
       <div className="w-full">
         <AppHeader />
-        {children}
+
+  <div className="p-8">
+    <WelcomeBanner/>
+          {children}
+
+  </div>
       </div>
     </SidebarProvider>
   );
