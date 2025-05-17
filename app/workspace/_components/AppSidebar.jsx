@@ -4,7 +4,9 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
+  SidebarGroupContent,
   SidebarHeader,
+  SidebarMenu,
 } from "@/components/ui/sidebar";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -35,15 +37,19 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <Button>Create New Course</Button>
-
-          {SidebarOptions.map((option) => (
+        </SidebarGroup>
+        <SidebarGroup >
+          <SidebarGroupContent>
+            <SidebarMenu>
+                 {SidebarOptions.map((option) => (
             <Button className={"my-1 cursor-pointer"} key={option.name}>
               {option.icon && <option.icon />}
               {option.name}
             </Button>
           ))}
-        </SidebarGroup>
-        <SidebarGroup />
+            </SidebarMenu>
+          </SidebarGroupContent>
+          </SidebarGroup>
       </SidebarContent>
       <SidebarFooter />
     </Sidebar>
