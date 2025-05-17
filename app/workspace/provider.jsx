@@ -12,7 +12,7 @@ const WorkspaceProvider = ({ children }) => {
         <AppHeader />
 
   <div className="p-8">
-    <WelcomeBanner/>
+
           {children}
 
   </div>
