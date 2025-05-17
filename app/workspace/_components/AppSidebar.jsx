@@ -1,39 +1,51 @@
-import React from "react"
+import React from "react";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
   SidebarHeader,
-} from "@/components/ui/sidebar"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/sidebar";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { LayoutDashboard } from "lucide-react";
+import { Layers2 } from "lucide-react";
+import { CreativeCommons } from "lucide-react";
 
 export function AppSidebar() {
-  const SidebarOptions =[
+  const SidebarOptions = [
     {
-      name:"Create New Course",
-      icon:""
+      name: "Dashbaord",
+      icon: LayoutDashboard,
     },
     {
-      name:"My Courses",
-      icon:""
-    }
-  ]
+      name: "Create New Course",
+      icon: CreativeCommons,
+    },
+    {
+      name: "My Courses",
+      icon: Layers2,
+    },
+  ];
   return (
     <Sidebar>
-      <SidebarHeader >
-        <Image src={"/logo.svg"} alt="Logo" width={140} height={120}/>
-        </SidebarHeader>
+      <SidebarHeader>
+        <Image src={"/logo.svg"} alt="Logo" width={140} height={120} />
+      </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup >
-          <Button>
-            Create New Course
-          </Button>
-          </SidebarGroup>
+        <SidebarGroup>
+          <Button>Create New Course</Button>
+
+          {SidebarOptions.map((option) => (
+            <Button className={"my-1 cursor-pointer"} key={option.name}>
+              {option.icon && <option.icon />}
+              {option.name}
+            </Button>
+          ))}
+        </SidebarGroup>
         <SidebarGroup />
       </SidebarContent>
       <SidebarFooter />
     </Sidebar>
-  )
+  );
 }
