@@ -18,6 +18,7 @@ import { Layers2 } from "lucide-react";
 import { CreativeCommons } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import AddNewCourseDialog from "./AddNewCourseDialog";
 
 export function AppSidebar() {
   const path = usePathname();
@@ -60,7 +61,9 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <Button>Create New Course</Button>
+         <AddNewCourseDialog>
+           <Button>Create New Course</Button>
+         </AddNewCourseDialog>
         </SidebarGroup>
         <SidebarGroup>
           <SidebarGroupContent>

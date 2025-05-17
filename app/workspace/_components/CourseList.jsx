@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { PlusCircleIcon } from "lucide-react";
 import React, { useState } from "react";
+import AddNewCourseDialog from "./AddNewCourseDialog";
 
 const CourseList = () => {
   const [courseList, setCourseList] = useState([]);
@@ -25,9 +26,14 @@ const CourseList = () => {
                 Looks like you haven't <br />
                 created any courses yet!
               </p>
-              <Button size={"lg"} className={"bg-indigo-600 hover:bg-indigo-700 cursor-pointer"	}>
-               <PlusCircleIcon/> Create course
-              </Button>
+              <AddNewCourseDialog>
+                <Button
+                  size={"lg"}
+                  className={"bg-indigo-600 hover:bg-indigo-700 cursor-pointer"}
+                >
+                  <PlusCircleIcon /> Create course
+                </Button>
+              </AddNewCourseDialog>
             </div>
           ) : (
             <div className="text-green-600 font-medium text-lg">
