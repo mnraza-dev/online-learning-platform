@@ -58,7 +58,7 @@ const AddNewCourseDialog = ({ children }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Course Generated:", formData);
-    // TODO: Integrate with backend or global state
+    
   };
 
   return (
