@@ -14,26 +14,51 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Sparkle } from "lucide-react";
 
 const AddNewCourseDialog = ({ children }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    duration: "",
+    chapters: 0,
     category: "",
+    isVideoIncluded: false,
+    difficulty_level: "",
   });
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
+    }));
+  };
+
+  const handleVideoToggle = () => {
+    setFormData((prev) => ({
+      ...prev,
+      isVideoIncluded: !prev.isVideoIncluded,
+    }));
+  };
+
+  const handleDifficultySelect = (value) => {
+    setFormData((prev) => ({
+      ...prev,
+      difficulty_level: value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Course Created:", formData);
-    // TODO: Add your logic to store or send course data
+    console.log("Course Generated:", formData);
+    // TODO: Integrate with backend or global state
   };
 
   return (
@@ -47,7 +72,7 @@ const AddNewCourseDialog = ({ children }) => {
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+        <form onSubmit={handleSubmit} className="space-y-4 mt-2">
           <div>
             <Label htmlFor="title">Course Title</Label>
             <Input
@@ -68,11 +93,11 @@ const AddNewCourseDialog = ({ children }) => {
               value={formData.description}
               onChange={handleChange}
               placeholder="Write a brief description..."
-              required
             />
           </div>
+
           <div>
-            <Label htmlFor="chapters">Number of Chapters </Label>
+            <Label htmlFor="chapters">Number of Chapters</Label>
             <Input
               id="chapters"
               name="chapters"
@@ -83,17 +108,31 @@ const AddNewCourseDialog = ({ children }) => {
               required
             />
           </div>
-          <div>
-            <Label htmlFor="duration">Duration (in hours)</Label>
-            <Input
-              id="duration"
-              name="duration"
-              type="number"
-              value={formData.duration}
-              onChange={handleChange}
-              placeholder="e.g. 10"
-              required
+
+          <div className="flex items-center gap-3">
+            <Switch
+              id="isVideoIncluded"
+              checked={formData.isVideoIncluded}
+              onCheckedChange={handleVideoToggle}
             />
+            <Label htmlFor="isVideoIncluded">Include Video</Label>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="difficulty_level">Difficulty Level</Label>
+            <Select
+              value={formData.difficulty_level}
+              onValueChange={handleDifficultySelect}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select Difficulty Level" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="beginner">Beginner</SelectItem>
+                <SelectItem value="moderate">Moderate</SelectItem>
+                <SelectItem value="advanced">Advanced</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div>
@@ -107,15 +146,15 @@ const AddNewCourseDialog = ({ children }) => {
               required
             />
           </div>
-          <div className="flex items-center gap-2">
-            <Label htmlFor="category">Include Video</Label>
-           <Switch />
-          </div>
-          
 
           <DialogFooter>
-            <Button type="submit" className="bg-green-600 hover:bg-green-700">
-              Create Course
+            <Button
+              type="submit"
+              className="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white flex gap-2 items-center"
+              size="lg"
+            >
+              <Sparkle className="w-4 h-4" />
+              Generate Course
             </Button>
           </DialogFooter>
         </form>
