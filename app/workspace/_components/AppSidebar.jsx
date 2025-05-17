@@ -21,14 +21,18 @@ export function AppSidebar() {
     {
       name: "Dashbaord",
       icon: LayoutDashboard,
+      path: "/#",
     },
+  
     {
       name: "Create New Course",
       icon: CreativeCommons,
+      path: "/#",
     },
     {
       name: "My Courses",
       icon: Layers2,
+      path: "/#",
     },
   ];
   return (
@@ -38,7 +42,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <Button >Create New Course</Button>
+          <Button>Create New Course</Button>
         </SidebarGroup>
         <SidebarGroup>
           <SidebarGroupContent>
