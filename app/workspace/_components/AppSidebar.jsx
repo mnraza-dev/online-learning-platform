@@ -10,6 +10,16 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
 export function AppSidebar() {
+  const SidebarOptions =[
+    {
+      name:"Create New Course",
+      icon:""
+    },
+    {
+      name:"My Courses",
+      icon:""
+    }
+  ]
   return (
     <Sidebar>
       <SidebarHeader >
