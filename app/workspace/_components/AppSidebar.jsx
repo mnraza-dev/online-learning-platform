@@ -7,12 +7,14 @@ import {
   SidebarGroupContent,
   SidebarHeader,
   SidebarMenu,
+  SidebarMenuButton,
 } from "@/components/ui/sidebar";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { LayoutDashboard } from "lucide-react";
 import { Layers2 } from "lucide-react";
 import { CreativeCommons } from "lucide-react";
+import Link from "next/link";
 
 export function AppSidebar() {
   const SidebarOptions = [
@@ -38,18 +40,22 @@ export function AppSidebar() {
         <SidebarGroup>
           <Button variant={"outline"}>Create New Course</Button>
         </SidebarGroup>
-        <SidebarGroup >
+        <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-                 {SidebarOptions.map((option) => (
-            <Button className={"my-1 cursor-pointer"} key={option.name}>
-              {option.icon && <option.icon />}
-              {option.name}
-            </Button>
-          ))}
+              {SidebarOptions.map((option) => (
+                <SidebarMenu key={option.name}>
+                  <SidebarMenuButton asChild>
+                    <Link href="/">
+                      {option.icon && <option.icon />}
+                      {option.name}
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenu>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
-          </SidebarGroup>
+        </SidebarGroup>
       </SidebarContent>
       <SidebarFooter />
     </Sidebar>
