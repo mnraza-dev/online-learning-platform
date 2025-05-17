@@ -3,12 +3,14 @@ import React from "react";
 import { AppSidebar } from "./_components/AppSidebar";
 
 const WorkspaceProvider = ({ children }) => {
-  return;
-  <SidebarProvider>
+  return(
+    <SidebarProvider>
     <AppSidebar />
     <SidebarTrigger />
 <div>    {children}</div>
-  </SidebarProvider>;
+  </SidebarProvider>
+  )
+  ;
 };
 
 export default WorkspaceProvider;
