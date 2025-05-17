@@ -6,7 +6,6 @@ import React, { useEffect } from "react";
 
 const Provider = ({ children }) => {
   const { user } = useUser();
-
   useEffect(() => {
     user && CreateNewUser();
   }, [user]);
