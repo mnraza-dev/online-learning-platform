@@ -51,7 +51,6 @@ export async function POST(req) {
       userEmail: user?.primaryEmailAddress?.emailAddress,
       cid: courseId,
     });
-
     return NextResponse.json({ courseId });
   } catch (err) {
     console.error("🔥 Error generating course:", err);

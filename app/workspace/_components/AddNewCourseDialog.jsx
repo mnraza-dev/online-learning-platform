@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import {
   Dialog,
   DialogTrigger,
@@ -25,8 +25,10 @@ import { Sparkle } from "lucide-react";
 import axios from "axios";
 import { Loader2Icon } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
 
 const AddNewCourseDialog = ({ children }) => {
+
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
@@ -37,6 +39,7 @@ const AddNewCourseDialog = ({ children }) => {
     difficulty_level: "",
   });
 
+  const router = useRouter();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -78,6 +81,7 @@ const AddNewCourseDialog = ({ children }) => {
         courseId,
       });
       console.log("Response from API:", result.data);
+      router.push(`/workspace/edit-course/${courseId}`);
     } catch (error) {
       console.error("Error generating course:", error);
     } finally {
