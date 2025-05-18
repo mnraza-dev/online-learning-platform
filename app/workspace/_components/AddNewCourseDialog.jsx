@@ -31,11 +31,12 @@ const AddNewCourseDialog = ({ children }) => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    chapters: 0,
+    noOfChapters: 0,
     category: "",
     isVideoIncluded: false,
     difficulty_level: "",
   });
+  x;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,6 +61,10 @@ const AddNewCourseDialog = ({ children }) => {
   };
 
   const handleSubmit = async (e) => {
+    if (formData.noOfChapters <= 0) {
+      alert("Please enter at least 1 chapter.");
+      return;
+    }
     const courseId = uuidv4();
     try {
       setLoading(true);
@@ -67,9 +72,9 @@ const AddNewCourseDialog = ({ children }) => {
       console.log("Course Generated:", formData);
       const result = await axios.post("/api/generate-course-layout", {
         ...formData,
-        courseId: courseId, 
+        courseId,
       });
-      console.log(result.data);
+
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -113,14 +118,15 @@ const AddNewCourseDialog = ({ children }) => {
           </div>
 
           <div>
-            <Label htmlFor="chapters">Number of Chapters</Label>
+            <Label htmlFor="noOfChapters">Number of Chapters</Label>
             <Input
-              id="chapters"
-              name="chapters"
+              id="noOfChapters"
+              name="noOfChapters"
               type="number"
-              value={formData.chapters}
+              value={formData.noOfChapters}
               onChange={handleChange}
               placeholder="e.g. 10"
+              min={1}
               required
             />
           </div>
