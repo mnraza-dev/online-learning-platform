@@ -24,6 +24,7 @@ import {
 import { Sparkle } from "lucide-react";
 import axios from "axios";
 import { Loader2Icon } from "lucide-react";
+import { v4 as uuidv4 } from "uuid";
 
 const AddNewCourseDialog = ({ children }) => {
   const [loading, setLoading] = useState(false);
@@ -59,12 +60,14 @@ const AddNewCourseDialog = ({ children }) => {
   };
 
   const handleSubmit = async (e) => {
+    const courseId = uuidv4();
     try {
       setLoading(true);
       e.preventDefault();
       console.log("Course Generated:", formData);
       const result = await axios.post("/api/generate-course-layout", {
         ...formData,
+        courseId: courseId, 
       });
       console.log(result.data);
       setLoading(false);

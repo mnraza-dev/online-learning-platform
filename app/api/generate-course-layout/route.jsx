@@ -1,7 +1,9 @@
+import { db } from "@/config/db";
 import { coursesTable } from "@/config/schema";
-import { currentUser } from "@clerk/nextjs/dist/types/server";
+import { currentUser } from "@clerk/nextjs/server";
 import { GoogleGenAI } from "@google/genai";
 import { NextResponse } from "next/server";
+
 const PROMPT = `
 Generate Learning Course depends on following details. In which Make sure to add course name, description, Chapter Name, image prompt (Create a modern, flat-style 2D digital illustration representing user Topic. Include UI/UX elements such as mockup screens, text blocks, icons, buttons , and creative workspace tools. Add symbolic elements related to user Course, like sticky notes, design components, and visual aids. Use a vibrant color palette ( blues, purple, oranges) with a clean, professional look. The illustration should feel creative , tech savvy and and educational, ideal for visualizing concepts in user Course) for Course Banner in 3D format, Topic under each chapters, Duration for each chapters etc, in JSON format only
 Schema:
@@ -9,7 +11,7 @@ Schema:
 “course”:{
 “title”:”string”,
 “description”:”string”,
-“chapters”:”number”,
+“noOfChapters”:”number”,
 “category”:”string”,
 “isVideoIncluded”:”boolean”,
 “difficulty_level”:”string”,
@@ -26,7 +28,7 @@ User Input : Reactjs , 3 chapters
 `;
 export async function POST(req) {
   const user = await currentUser();
-  const formData = await req.json();
+  const { courseId, ...formData } = await req.json();
   const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
   });
@@ -50,14 +52,21 @@ export async function POST(req) {
     contents,
   });
   // Save to database
-  const RawResp = await response?.condidates[0]?.content?.parts[0]?.text();
+  const RawResp = response?.candidates[0]?.content?.parts?.[0]?.text;
   const Rawjson = RawResp.replace("```json", "").replace("```", "");
   const jsonResponse = JSON.parse(Rawjson);
+  if (!RawResp) {
+    return NextResponse.json({ error: "Empty AI response" }, { status: 500 });
+  }
+
   const result = await db.insert(coursesTable).values({
     ...formData,
-    courseJson: response.text(),
+    courseJson: jsonResponse,
     userEmail: user?.primaryEmailAddress?.emailAddress,
+    cid: courseId,
   });
 
-  return NextResponse.json(jsonResponse);
+  return NextResponse.json({
+    courseId: courseId,
+  });
 }

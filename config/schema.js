@@ -12,11 +12,11 @@ export const coursesTable = pgTable("courses", {
   cid: varchar({ length: 255 }).notNull().unique(),
   title: varchar({ length: 255 }).notNull(),
   description: varchar({ length: 255 }),
-  chapters: integer().notNull(),
+  noOfChapters: integer().notNull(),
   category: varchar({ length: 255 }).notNull(),
   isVideoIncluded: boolean().default(false),
   difficulty_level: varchar({ length: 255 }).notNull(),
-  duration: varchar({ length: 255 }).notNull(),
+  duration: varchar({ length: 255 }),
   courseJson:json(),
   userEmail: varchar("userEmail").references(() => usersTable.email),
 });
