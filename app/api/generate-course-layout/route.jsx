@@ -1,3 +1,5 @@
+import { coursesTable } from "@/config/schema";
+import { currentUser } from "@clerk/nextjs/dist/types/server";
 import { GoogleGenAI } from "@google/genai";
 import { NextResponse } from "next/server";
 const PROMPT = `
@@ -23,6 +25,7 @@ Schema:
 User Input : Reactjs , 3 chapters
 `;
 export async function POST(req) {
+  const user = await currentUser();
   const formData = await req.json();
   const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
@@ -46,6 +49,13 @@ export async function POST(req) {
     config,
     contents,
   });
-// Save to database
-  return NextResponse.json(response.text()  );
+  // Save to database
+
+  const result = await db.insert(coursesTable).values({
+    ...formData,
+    courseJson: response.text(),
+    userEmail: user?.primaryEmailAddress?.emailAddress,
+  });
+
+  return NextResponse.json(response.text());
 }

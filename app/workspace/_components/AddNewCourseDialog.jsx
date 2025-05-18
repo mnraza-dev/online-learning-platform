@@ -22,8 +22,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Sparkle } from "lucide-react";
+import axios from "axios";
+import { Loader2Icon } from "lucide-react";
 
 const AddNewCourseDialog = ({ children }) => {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -55,11 +58,15 @@ const AddNewCourseDialog = ({ children }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     console.log("Course Generated:", formData);
-    
-    
+    const result = await axios.post("/api/generate-course-layout", {
+      ...formData,
+    });
+    console.log(result.data);
+    setLoading(false);
   };
 
   return (
@@ -153,8 +160,13 @@ const AddNewCourseDialog = ({ children }) => {
               type="submit"
               className="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white flex gap-2 items-center"
               size="lg"
+              disabled={loading}
             >
-              <Sparkle className="w-4 h-4" />
+              {loading ? (
+                <Loader2Icon className="w-4 h-4 animate-spin" />
+              ) : (
+                <Sparkle className="w-4 h-4" />
+              )}
               Generate Course
             </Button>
           </DialogFooter>
