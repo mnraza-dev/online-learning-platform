@@ -59,6 +59,7 @@ const AddNewCourseDialog = ({ children }) => {
     e.preventDefault();
     console.log("Course Generated:", formData);
     
+    
   };
 
   return (
