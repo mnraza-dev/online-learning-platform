@@ -27,7 +27,7 @@ Schema:
     ]
   }
 }
-User Input: Reactjs, 3 chapters
+User Input: 
 `;
 
 export async function POST(req) {
@@ -46,7 +46,7 @@ export async function POST(req) {
     const Rawjson = text.replace(/```json|```/g, "").trim();
     const jsonResponse = JSON.parse(Rawjson);
     // generate course banner image
-    const ImagePrompt = jsonResponse.chapters[0].imagePrompt;
+    // const ImagePrompt = jsonResponse?.course?.imagePrompt;
 
     // Save to database
     await db.insert(coursesTable).values({

@@ -64,18 +64,15 @@ const AddNewCourseDialog = ({ children }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (formData.noOfChapters <= 0) {
       alert("Please enter at least 1 chapter.");
       return;
     }
-
     const courseId = uuidv4();
 
     try {
       setLoading(true);
       console.log("Submitting form with data:", { ...formData, courseId });
-
       const result = await axios.post("/api/generate-course-layout", {
         ...formData,
         courseId,
