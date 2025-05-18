@@ -36,7 +36,6 @@ const AddNewCourseDialog = ({ children }) => {
     isVideoIncluded: false,
     difficulty_level: "",
   });
-  x;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,24 +60,28 @@ const AddNewCourseDialog = ({ children }) => {
   };
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
+
     if (formData.noOfChapters <= 0) {
       alert("Please enter at least 1 chapter.");
       return;
     }
+
     const courseId = uuidv4();
+
     try {
       setLoading(true);
-      e.preventDefault();
-      console.log("Course Generated:", formData);
+      console.log("Submitting form with data:", { ...formData, courseId });
+
       const result = await axios.post("/api/generate-course-layout", {
         ...formData,
         courseId,
       });
-
-      setLoading(false);
+      console.log("Response from API:", result.data);
     } catch (error) {
-      setLoading(false);
       console.error("Error generating course:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
