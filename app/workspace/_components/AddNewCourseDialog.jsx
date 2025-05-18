@@ -88,7 +88,6 @@ const AddNewCourseDialog = ({ children }) => {
       setLoading(false);
     }
   };
-
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>

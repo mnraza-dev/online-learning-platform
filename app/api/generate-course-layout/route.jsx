@@ -16,12 +16,13 @@ Schema:
     "isVideoIncluded": "boolean",
     "difficulty_level": "string",
     "duration": "number",
+    "imagePrompt": "string",
     "chapters": [
       {
         "chapterName": "string",
         "duration": "number",
         "topics": ["string"],
-        "imagePrompt": "string"
+      
       }
     ]
   }
@@ -44,7 +45,10 @@ export async function POST(req) {
 
     const Rawjson = text.replace(/```json|```/g, "").trim();
     const jsonResponse = JSON.parse(Rawjson);
+    // generate course banner image
+    const ImagePrompt = jsonResponse.chapters[0].imagePrompt;
 
+    // Save to database
     await db.insert(coursesTable).values({
       ...formData,
       courseJson: jsonResponse,
