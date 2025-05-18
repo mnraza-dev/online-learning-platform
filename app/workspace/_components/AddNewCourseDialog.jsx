@@ -59,14 +59,19 @@ const AddNewCourseDialog = ({ children }) => {
   };
 
   const handleSubmit = async (e) => {
-    setLoading(true);
-    e.preventDefault();
-    console.log("Course Generated:", formData);
-    const result = await axios.post("/api/generate-course-layout", {
-      ...formData,
-    });
-    console.log(result.data);
-    setLoading(false);
+    try {
+      setLoading(true);
+      e.preventDefault();
+      console.log("Course Generated:", formData);
+      const result = await axios.post("/api/generate-course-layout", {
+        ...formData,
+      });
+      console.log(result.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error("Error generating course:", error);
+    }
   };
 
   return (

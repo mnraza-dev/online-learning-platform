@@ -50,12 +50,14 @@ export async function POST(req) {
     contents,
   });
   // Save to database
-
+  const RawResp = await response?.condidates[0]?.content?.parts[0]?.text();
+  const Rawjson = RawResp.replace("```json", "").replace("```", "");
+  const jsonResponse = JSON.parse(Rawjson);
   const result = await db.insert(coursesTable).values({
     ...formData,
     courseJson: response.text(),
     userEmail: user?.primaryEmailAddress?.emailAddress,
   });
 
-  return NextResponse.json(response.text());
+  return NextResponse.json(jsonResponse);
 }
