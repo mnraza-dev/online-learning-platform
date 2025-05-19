@@ -4,11 +4,10 @@ import React from "react";
 
 const AppHeader = () => {
   return (
-    <div className="p-4 shadow-sm flex items-center justify-between">
+    <header className="p-4 sticky top-0 left-0 z-60 backdrop-blur-md shadow-sm flex items-center justify-between">
       <SidebarTrigger />
-      <h1>Header</h1>
       <UserButton />
-    </div>
+    </header>
   );
 };
 

@@ -18,5 +18,6 @@ export const coursesTable = pgTable("courses", {
   difficulty_level: varchar({ length: 255 }).notNull(),
   duration: varchar({ length: 255 }),
   courseJson:json(),
+  bannerImageUrl: varchar({ length: 255 }).default('https://cdn-icons-png.flaticon.com/512/4076/4076549.png'),
   userEmail: varchar("userEmail").references(() => usersTable.email),
 });
